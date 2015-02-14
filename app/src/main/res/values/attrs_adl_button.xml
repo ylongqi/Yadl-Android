@@ -1,0 +1,8 @@
+<resources>
+    <declare-styleable name="AdlButton">
+        <attr name="reference" format="string" />
+        <attr name="ringColor" format="color" />
+        <attr name="ringWidth" format="dimension" />
+        <attr name="adlDrawable" format="color|reference" />
+    </declare-styleable>
+</resources>

@@ -7,6 +7,7 @@ import wei.mark.standout.R;
 import wei.mark.standout.StandOutWindow;
 import wei.mark.standout.StandOutWindow.StandOutLayoutParams;
 import wei.mark.standout.Utils;
+import wei.mark.standout.YadlFrameLayout;
 import wei.mark.standout.constants.StandOutFlags;
 import android.content.Context;
 import android.os.Bundle;
@@ -22,6 +23,10 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+/*
+Framework Modified by: Longqi Yang
+Enable the gesture handling both from Viewgroup and View
+ */
 
 /**
  * Special view that represents a floating window.
@@ -111,17 +116,20 @@ public class Window extends FrameLayout {
 
 		// create the window contents
 		View content;
-		FrameLayout body;
+		YadlFrameLayout body;
 
 		if (Utils.isSet(flags, StandOutFlags.FLAG_DECORATION_SYSTEM)) {
 			// requested system window decorations
-			content = getSystemDecorations();
-			body = (FrameLayout) content.findViewById(R.id.body);
+			//content = getSystemDecorations();
+			//body = (FrameLayout) content.findViewById(R.id.body);
+            content = new YadlFrameLayout(context);
+            content.setId(R.id.content);
+            body = (YadlFrameLayout) content;
 		} else {
 			// did not request decorations. will provide own implementation
-			content = new FrameLayout(context);
+			content = new YadlFrameLayout(context);
 			content.setId(R.id.content);
-			body = (FrameLayout) content;
+			body = (YadlFrameLayout) content;
 		}
 
 		addView(content);

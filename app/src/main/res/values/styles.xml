@@ -1,8 +1,13 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="YadlTheme" parent="@android:style/Theme.Translucent.NoTitleBar">
         <!-- Customize your theme here. -->
+        <item name="android:windowAnimationStyle">@style/ActivityAnimation</item>
+    </style>
+
+    <style name="ActivityAnimation">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
     </style>
 
 </resources>

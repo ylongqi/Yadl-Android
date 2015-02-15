@@ -31,11 +31,15 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+
+/*
+Framework Modified by: Longqi Yang
+Enable the gesture handling both from Viewgroup and View
+ */
 
 /**
  * Extend this class to easily create and manage floating StandOut windows.
@@ -445,14 +449,14 @@ public abstract class StandOutWindow extends Service {
 	 * 
 	 * <p>
 	 * If you are creating your view programmatically, make sure you use
-	 * {@link FrameLayout#addView(View)} to add your view to the frame.
+	 * {@link YadlFrameLayout#addView(View)} to add your view to the frame.
 	 * 
 	 * @param id
 	 *            The id representing the window.
 	 * @param frame
-	 *            The {@link FrameLayout} to attach your view as a child to.
+	 *            The {@link YadlFrameLayout} to attach your view as a child to.
 	 */
-	public abstract void createAndAttachView(int id, FrameLayout frame);
+	public abstract void createAndAttachView(int id, YadlFrameLayout frame);
 
 	/**
 	 * Return the {@link StandOutWindow#LayoutParams} for the corresponding id.
@@ -1580,9 +1584,15 @@ public abstract class StandOutWindow extends Service {
 			MotionEvent event) {
 		StandOutLayoutParams params = window.getLayoutParams();
 
+        if(YadlFrameLayout.init_flag && window.touchInfo.firstX == 0 && window.touchInfo.firstY == 0){
+            window.touchInfo.lastX = YadlFrameLayout.init_x;
+            window.touchInfo.lastY = YadlFrameLayout.init_y;
+            window.touchInfo.firstX = window.touchInfo.lastX;
+            window.touchInfo.firstY = window.touchInfo.lastY;
+            YadlFrameLayout.init_flag = false;
+        }
 		// how much you have to move in either direction in order for the
 		// gesture to be a move and not tap
-
 		int totalDeltaX = window.touchInfo.lastX - window.touchInfo.firstX;
 		int totalDeltaY = window.touchInfo.lastY - window.touchInfo.firstY;
 

@@ -18,6 +18,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.text.TextPaint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -61,6 +62,19 @@ public class AdlButton extends ViewGroup {
     public AdlButton(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(attrs, defStyle);
+    }
+
+    private int getMinWidth(){
+        return (int)(10 * mRingWidth);
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec){
+
+        int w = Math.max(getMinWidth(), MeasureSpec.getSize(widthMeasureSpec));
+        int h = Math.min(w, MeasureSpec.getSize(heightMeasureSpec));
+
+        setMeasuredDimension(w, h);
     }
 
     @Override
@@ -128,6 +142,7 @@ public class AdlButton extends ViewGroup {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         boolean result = mGestureDetector.onTouchEvent(event);
+        Log.i("onTouchEvent", Boolean.toString(result));
 
         return result;
     }

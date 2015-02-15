@@ -3,7 +3,6 @@ package com.yadagame.yadl;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 
 import wei.mark.standout.*;
@@ -15,6 +14,7 @@ import wei.mark.standout.constants.*;
  */
 public class ActivityWindow extends StandOutWindow {
 
+    public static final String TERMINATE = "com.yadagame.yadl.ButtonActivity.Terminate";
     @Override
     public String getAppName() {
         return "Yadl";
@@ -26,21 +26,27 @@ public class ActivityWindow extends StandOutWindow {
     }
 
     @Override
-    public void createAndAttachView(int id, FrameLayout frame){
+    public void createAndAttachView(int id, YadlFrameLayout frame){
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 
         View view = inflater.inflate(R.layout.activity_button, frame, true);
         ImageButton button = (ImageButton) view.findViewById(R.id.activity_img);
-
 
         button.setOnClickListener(
             new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
-                    Intent act_intent = new Intent(ActivityWindow.this, ButtonActivity.class);
-                    act_intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(act_intent);
+
+                    if(ButtonActivity.ACTIVE){
+                        Intent terminate_intent = new Intent(ActivityWindow.TERMINATE);
+                        sendBroadcast(terminate_intent);
+                    } else{
+                        Intent act_intent = new Intent(ActivityWindow.this, ButtonActivity.class);
+                        act_intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(act_intent);
+                    }
+
                 }
             });
 

@@ -18,6 +18,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -638,12 +639,20 @@ public abstract class StandOutWindow extends Service {
 	public Notification getPersistentNotification(int id) {
 		// basic notification stuff
 		// http://developer.android.com/guide/topics/ui/notifiers/notifications.html
+
+        // Modified by Longqi to reflect the new Notification API.
+        NotificationCompat.Builder NotiBuilder = new NotificationCompat.Builder(this);
 		int icon = getAppIcon();
 		long when = System.currentTimeMillis();
-		Context c = getApplicationContext();
-		String contentTitle = getPersistentNotificationTitle(id);
-		String contentText = getPersistentNotificationMessage(id);
-		String tickerText = String.format("%s: %s", contentTitle, contentText);
+        String contentTitle = getPersistentNotificationTitle(id);
+        String contentText = getPersistentNotificationMessage(id);
+
+        NotiBuilder.setWhen(when);
+        NotiBuilder.setSmallIcon(icon);
+        NotiBuilder.setContentTitle(contentTitle).setContentText(contentText).setColor(0xffF06916);
+
+        //Context c = getApplicationContext();
+		//String tickerText = String.format("%s: %s", contentTitle, contentText);
 
 		// getPersistentNotification() is called for every new window
 		// so we replace the old notification with a new one that has
@@ -659,10 +668,11 @@ public abstract class StandOutWindow extends Service {
 					PendingIntent.FLAG_UPDATE_CURRENT);
 		}
 
-		Notification notification = new Notification(icon, tickerText, when);
-		notification.setLatestEventInfo(c, contentTitle, contentText,
-				contentIntent);
-		return notification;
+        NotiBuilder.setContentIntent(contentIntent);
+		//Notification notification = new Notification(icon, tickerText, when);
+		//notification.setLatestEventInfo(c, contentTitle, contentText,
+				//contentIntent);
+		return NotiBuilder.build();
 	}
 
 	/**

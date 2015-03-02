@@ -9,6 +9,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
 
 public class ButtonActivity extends Activity {
@@ -19,6 +21,15 @@ public class ButtonActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ImageView cancel = (ImageView)findViewById(R.id.cancel);
+        cancel.setOnClickListener(new View.OnClickListener() {
+                                      @Override
+                                      public void onClick(View v) {
+                                          finish();
+                                      }
+                                  });
+
     }
 
     @Override

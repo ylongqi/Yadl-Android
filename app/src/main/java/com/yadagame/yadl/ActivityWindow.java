@@ -22,7 +22,7 @@ public class ActivityWindow extends StandOutWindow {
 
     @Override
     public int getAppIcon() {
-        return R.drawable.activity;
+        return R.drawable.activity_icon;
     }
 
     @Override
@@ -43,7 +43,8 @@ public class ActivityWindow extends StandOutWindow {
                         sendBroadcast(terminate_intent);
                     } else{
                         Intent act_intent = new Intent(ActivityWindow.this, ButtonActivity.class);
-                        act_intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        act_intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                                Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(act_intent);
                     }
 

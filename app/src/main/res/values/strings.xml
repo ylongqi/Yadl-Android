@@ -6,5 +6,6 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_button">ButtonActivity</string>
     <string name="instruction">Tap any activity which was hard for you today</string>
+    <string name="mode_select">LAUNCH MODE SELECT</string>
 
 </resources>

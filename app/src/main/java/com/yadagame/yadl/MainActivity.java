@@ -1,33 +1,47 @@
 package com.yadagame.yadl;
 
 import android.app.Activity;
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
+import android.widget.RadioGroup;
 
 import wei.mark.standout.StandOutWindow;
 
 public class MainActivity extends Activity {
 
+    private RadioGroup mModeGroup;
+    private NotificationManager mNotificationManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //StandOutWindow.closeAll(this, ActivityWindow.class);
-        //StandOutWindow.show(this, ActivityWindow.class, StandOutWindow.DEFAULT_ID);
+        mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.cancel(getClass().hashCode());
+        StandOutWindow.closeAll(this, ActivityWindow.class);
 
-        NotificationCompat.Builder NotiBuilder = getYadlNotification();
-        NotificationManager mNotificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.notify(1, NotiBuilder.build());
+        setContentView(R.layout.activity_logo);
+        mModeGroup = (RadioGroup) findViewById(R.id.mode_select);
 
-        finish();
+        mModeGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                if(checkedId == R.id.noti){
+                    NotificationCompat.Builder NotiBuilder = getYadlNotification();
+                    mNotificationManager.notify(MainActivity.this.getClass().hashCode(), NotiBuilder.build());
+                } else {
+                    StandOutWindow.show(MainActivity.this, ActivityWindow.class, StandOutWindow.DEFAULT_ID);
+                }
+
+                finish();
+
+            }
+        });
+
     }
 
     public NotificationCompat.Builder getYadlNotification(){

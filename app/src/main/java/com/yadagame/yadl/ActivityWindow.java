@@ -55,7 +55,7 @@ public class ActivityWindow extends StandOutWindow {
 
     @Override
     public StandOutLayoutParams getParams(int id, Window window){
-        return new StandOutLayoutParams(id, 150, 150, StandOutLayoutParams.RIGHT, StandOutLayoutParams.CENTER);
+        return new StandOutLayoutParams(id, 150, 200, StandOutLayoutParams.RIGHT, StandOutLayoutParams.CENTER);
     }
 
     @Override

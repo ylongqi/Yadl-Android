@@ -49,7 +49,7 @@ public class MainActivity extends Activity {
         NotificationCompat.Builder NotiBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.activity_icon)
-                        .setColor(0xffF06916)
+                        .setColor(0xff31A122)
                         .setContentTitle("Yadl Running")
                         .setContentText("Tap to Open ADL Button");
 

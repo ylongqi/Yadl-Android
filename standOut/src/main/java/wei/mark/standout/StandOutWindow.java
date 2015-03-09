@@ -649,7 +649,7 @@ public abstract class StandOutWindow extends Service {
 
         NotiBuilder.setWhen(when);
         NotiBuilder.setSmallIcon(icon);
-        NotiBuilder.setContentTitle(contentTitle).setContentText(contentText).setColor(0xffF06916);
+        NotiBuilder.setContentTitle(contentTitle).setContentText(contentText).setColor(0xff31A122);
 
         //Context c = getApplicationContext();
 		//String tickerText = String.format("%s: %s", contentTitle, contentText);
